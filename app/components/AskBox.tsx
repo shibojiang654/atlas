@@ -1,6 +1,14 @@
 ﻿"use client";
 
 import React from "react";
+import { motion } from "framer-motion";
+import { MessageCircleQuestion } from "lucide-react";
+
+import { Button } from "@/app/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { Textarea } from "@/app/components/ui/textarea";
 
 type Props = {
   onAsk: (question: string, dateRange?: { start: string; end: string }) => Promise<void>;
@@ -17,42 +25,41 @@ export default function AskBox({ onAsk, loading }: Props) {
     if (!question.trim()) {
       return;
     }
-    await onAsk(
-      question,
-      start && end
-        ? {
-            start,
-            end
-          }
-        : undefined
-    );
+    await onAsk(question, start && end ? { start, end } : undefined);
   }
 
   return (
-    <form className="card" onSubmit={submit}>
-      <h3>Ask Atlas</h3>
-      <label>
-        Question
-        <textarea
-          rows={4}
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="What patterns do you see in how I handle stress?"
-        />
-      </label>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-        <label>
-          Date start (optional)
-          <input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
-        </label>
-        <label>
-          Date end (optional)
-          <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
-        </label>
-      </div>
-      <button disabled={loading} type="submit">
-        {loading ? "Thinking..." : "Ask"}
-      </button>
-    </form>
+    <motion.form initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} onSubmit={submit}>
+      <Card>
+        <CardHeader>
+          <CardTitle className="inline-flex items-center gap-2">
+            <MessageCircleQuestion className="h-5 w-5 text-primary" /> Ask Atlas
+          </CardTitle>
+          <CardDescription>Get grounded insight from your journal history with clear citations.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label>Question</Label>
+            <Textarea
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              rows={4}
+              placeholder="What thought loops showed up this week?"
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label>From date</Label>
+              <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
+            </div>
+            <div className="space-y-2">
+              <Label>To date</Label>
+              <Input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
+            </div>
+          </div>
+          <Button disabled={loading}>{loading ? "Thinking..." : "Ask Atlas"}</Button>
+        </CardContent>
+      </Card>
+    </motion.form>
   );
 }
