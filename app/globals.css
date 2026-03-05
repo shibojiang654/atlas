@@ -1,0 +1,67 @@
+﻿:root {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 6px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #0f172a;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+nav a {
+  margin-right: 14px;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.muted {
+  color: #64748b;
+  font-size: 14px;
+}
